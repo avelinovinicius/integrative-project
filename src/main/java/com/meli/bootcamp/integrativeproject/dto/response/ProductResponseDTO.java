@@ -43,8 +43,18 @@ public class ProductResponseDTO {
                 .category(product.getCategory())
                 .build();
     }
+    
 
     public static List<ProductResponseDTO> entityListToDtoList(List<Product> products) {
         return products.stream().map(product -> ProductResponseDTO.toDTO(product)).collect(Collectors.toList());
     }
+
+	public ProductResponseDTO(Product x) {
+		this.name = x.getName();
+		this.currentTemperature = x.getCurrentTemperature();
+		this.minimalTemperature = x.getMinimalTemperature();
+		this.quantity = (x.getQuantity().longValue());
+        this.category = x.getCategory();
+        this.dueDate = x.getDueDate();
+	}
 }

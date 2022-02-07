@@ -1,5 +1,18 @@
 package com.meli.bootcamp.integrativeproject.service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.meli.bootcamp.integrativeproject.dto.response.ProductResponseDTO;
 import com.meli.bootcamp.integrativeproject.dto.response.WarehouseProductDTO;
 import com.meli.bootcamp.integrativeproject.dto.response.WarehouseProductResponse;
 import com.meli.bootcamp.integrativeproject.entity.Product;
@@ -9,14 +22,6 @@ import com.meli.bootcamp.integrativeproject.exception.InvalidEnumException;
 import com.meli.bootcamp.integrativeproject.exception.NotFoundException;
 import com.meli.bootcamp.integrativeproject.repositories.ProductRepository;
 import com.meli.bootcamp.integrativeproject.repositories.ProductRepository.ProductInWarehouse;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -121,4 +126,10 @@ public class ProductService {
 
         return response;
     }
+
+    @Transactional(readOnly = true)
+	public Page<ProductResponseDTO> findAllPage(Pageable pageable) {
+		Page<Product> list = productRepository.findAll(pageable);
+		return list.map(x -> new ProductResponseDTO(x));
+	}
 }

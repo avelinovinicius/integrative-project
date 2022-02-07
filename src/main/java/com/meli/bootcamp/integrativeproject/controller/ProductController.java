@@ -1,16 +1,19 @@
 package com.meli.bootcamp.integrativeproject.controller;
 
-import com.meli.bootcamp.integrativeproject.dto.response.ProductBatchResponseDTO;
-import com.meli.bootcamp.integrativeproject.dto.response.ProductResponseDTO;
-import com.meli.bootcamp.integrativeproject.entity.Product;
-import com.meli.bootcamp.integrativeproject.service.ProductService;
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.meli.bootcamp.integrativeproject.dto.response.ProductBatchResponseDTO;
+import com.meli.bootcamp.integrativeproject.dto.response.ProductResponseDTO;
+import com.meli.bootcamp.integrativeproject.entity.Product;
+import com.meli.bootcamp.integrativeproject.service.ProductService;
 
 @RestController
 @RequestMapping("/fresh-products")
@@ -27,6 +30,13 @@ public class ProductController {
         List<Product> products = service.findAll();
 
         return ResponseEntity.ok(ProductResponseDTO.entityListToDtoList(products));
+    }
+    
+    @GetMapping("/list/page")
+    public ResponseEntity<Page<ProductResponseDTO>> findAllPaged(Pageable pageable)
+    {
+    	Page<ProductResponseDTO> list = service.findAllPage(pageable);
+    	return ResponseEntity.ok().body(list);
     }
 
     @GetMapping("/list/byCategory")
@@ -47,4 +57,5 @@ public class ProductController {
     public ResponseEntity<Object> getProductQuantityByName(@RequestParam(name = "product_name") String name){
         return ResponseEntity.ok().body(service.findAllByNameInWarehouse(name));
     }
+    
 }
