@@ -5,7 +5,7 @@ import com.meli.bootcamp.integrativeproject.entity.Product;
 import com.meli.bootcamp.integrativeproject.exception.NotFoundException;
 import com.meli.bootcamp.integrativeproject.repositories.ProductRepository;
 import com.meli.bootcamp.integrativeproject.service.ProductService;
-import com.meli.bootcamp.integrativeproject.tests.Factory;
+import com.meli.bootcamp.integrativeproject.factory.Factory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

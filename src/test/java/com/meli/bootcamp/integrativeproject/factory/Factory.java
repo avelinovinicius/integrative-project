@@ -1,4 +1,4 @@
-package com.meli.bootcamp.integrativeproject.tests;
+package com.meli.bootcamp.integrativeproject.factory;
 
 import com.meli.bootcamp.integrativeproject.entity.Batch;
 import com.meli.bootcamp.integrativeproject.entity.Product;
