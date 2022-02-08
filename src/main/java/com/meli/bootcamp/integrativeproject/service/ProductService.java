@@ -130,6 +130,10 @@ public class ProductService {
     @Transactional(readOnly = true)
 	public Page<ProductResponseDTO> findAllPage(Pageable pageable) {
 		Page<Product> list = productRepository.findAll(pageable);
+
+        if(list.isEmpty())
+            throw new NotFoundException("There is no product available");
+
 		return list.map(x -> new ProductResponseDTO(x));
 	}
 }
