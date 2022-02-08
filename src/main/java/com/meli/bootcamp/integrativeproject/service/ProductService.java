@@ -128,7 +128,7 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-	public Page<ProductResponseDTO> findAllPage(Pageable pageable) {
+	public Page<ProductResponseDTO> findAllPaged(Pageable pageable) {
 		Page<Product> list = productRepository.findAll(pageable);
 
         if(list.isEmpty())
